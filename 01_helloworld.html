@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>Meu primeiro aplicativo Vue</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    Matheus Vidal ! {{ message }} {{ brasil }}
+  </div>
+
+  <div id="app-2">
+    <span v-bind:title="message">
+      Pare o mouse sobre mim e veja a dica interligada dinamicamente!
+    </span>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Olá Vue!',
+        brasil: 'asdkasklda'
+      }
+    })
+
+    var app2 = new Vue({
+      el: '#app-2',
+      data: {
+        message: 'Você carregou esta página em ' + new Date().toLocaleString(),
+      }
+    })
+  </script>
+</body>
+</html>
