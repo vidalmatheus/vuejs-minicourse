@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <title>09 - Vuex e TO-DO list</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vuex"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="vidal_style.css">
+</head>
+
+<body>
+    <div id="app" class="container app">
+        <label class="label">Add task</label>
+        <new-task></new-task>
+        <todo-table></todo-table>
+    </div>
+    
+    <script src="todoStore.js"></script>
+    <script src="todoTableVuex.js"></script>
+    <script src="newTask.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+            },
+            methods: {
+            },
+            store: window.STORE,
+        });
+    </script>
+
+</body>
+</html>

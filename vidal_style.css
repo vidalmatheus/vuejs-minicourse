@@ -1,0 +1,19 @@
+.bordinha {
+    border: solid;
+}
+.vermelho {
+    color: red;
+}
+.icone {
+    height: 30px;
+    width: 30px;
+}
+.risca {
+    text-decoration: line-through;
+}
+.gira {
+    transform: rotate(40deg);
+}
+.app {
+    padding: 20px;
+}
