@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8">
+  <title>06_v-for e a TODO list</title>
+  <script src="https://unpkg.com/vue"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="vidal_style.css">
+</head>
+
+<body>
+  <div id="app" class="container app">
+    <label class="label">Add task</label>
+    <div class="field">
+      <div class="control">
+        <!-- v-on:keyup uses method add() without parameter. v-model has the parameter -->
+        <input class="input" type="text" placeholder="Name" v-model="newTask" @keyup.enter="add()">
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>To-do list</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- iterates with a js variable -->
+        <tr v-for="task in tasks">
+          <!-- use v-model to capture user values -->
+          <td><input type="checkbox" v-model="task.done"></td>
+          <!-- v-bind:class for conditional CSS class application-->
+          <td :class="{risca: task.done}">{{task.name}}</td>
+          <!-- use v-on:click to execute a js method on event-->
+          <td><button v-on:click="remove(task)"><span class="icon has-text-info">
+              <i class="fa fa-trash-o"></i>
+            </span></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="todoTable.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        newTask: null,
+        tasks: [
+          {
+            name: 'Lavar a roupa',
+            done: false,
+          },
+          {
+            name: 'Trocar a fralda do neném',
+            done: true,
+          },
+          {
+            name: 'Passear com o cachorro',
+            done: false,
+          },
+        ],
+      },
+      methods: {
+        remove: function(task){
+          let idx = this.tasks.indexOf(task);
+          this.tasks.splice(idx, 1);
+        },
+        add: function(){
+          this.tasks.push(
+            {
+              name: this.newTask,
+              done: false,
+            }
+          );
+        },
+      },
+    });
+  </script>
+
+</body>
+
+</html>
