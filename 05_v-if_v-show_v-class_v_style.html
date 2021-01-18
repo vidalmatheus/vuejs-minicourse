@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>05 - Aparição e Aparência: v-if, v-show, :class e :style</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="vidal_style.css">
+</head>
+<body>
+    <div id="app">
+        <input type="checkbox" v-model="v1">v1<br>
+        <input type="checkbox" v-model="v2">v2<br>
+        <input type="checkbox" v-model="v3">v3<br>
+        <input type="checkbox" v-model="v4">v4<br>
+        <span v-if="v1" :class="{bordinha: v3, vermelho: v4}"> v-if realmente remove da tela </span><br>
+        <span v-show="v2"> v-show adiciona display: none <br> (pensar em cada caso de performance)</span><br>
+        <img src="https://evolutio.io/media/images/vue.png" 
+             class="icone"
+             :style="{transform: 'rotate('+ ang + 'deg)'}">
+        <br><br>
+        <button @click="roda()"> Roda! </button>
+        <button @click="parou()"> Parou! </button>
+        <br>
+        IntervalIDs: {{ timer }}
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                v1: false,
+                v2: false,
+                v3: false,
+                v4: false,
+                ang: 0,
+                timer: [], // list of intervalId (each thread)
+            },
+            methods : {
+                roda:  function() {
+                     this.timer.push( setInterval( () => { // cria uma thread que executa a função cada 10 ms
+                        this.ang++;
+                    }, 10));
+                },
+                parou: function() {
+                    clearInterval(this.timer.pop());
+                }
+            },
+        });
+
+    </script>
+
+</body>
+</html>
