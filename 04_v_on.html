@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>04 - Capture eventos com v-on, manipule atributos com v-bind</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <h3> Atalhos: @ = "v-on:", : = "v-bind:" </h1>
+
+    <div id="app">
+        {{ message }} <br>
+        <button @click="onbotao()"> BOTAO </button>
+        
+        <select @change="onselect($event)">
+            <option value="abacate" selected> AAA </option>
+            <option value="banana"> BBB </option>
+            <option value="caju"> CCC </option>
+        </select><br>
+
+        <textarea v-bind:rows="linhas"> </textarea>
+
+    </div>
+
+
+    <script>
+        // var data = {
+        //         message: 'Vidal',
+        //     };
+        // var app = new Vue({
+        //     el: "#app",
+        //     data: data,
+        //     methods: {
+        //         onbotao: () => {
+        //             data.message = 'Clicou no botao';
+        //         }
+        //     }
+        // });
+        
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: null,
+                linhas: 2,
+            },
+            methods: {
+                onbotao: function() {
+                    this.message = 'Clicou no botao';
+                    this.linhas++;
+                },
+                onselect: function(evt) {
+                    this.message = evt.target.value;
+                },
+                // onselect: (evt) => {
+                //     this.message = evt.target.value;
+                // },
+                // // nao funciona, porque o 'this' de array function é Window
+            }
+        });
+    </script>
+
+
+</body>
+</html>
