@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>07 - Ajax</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="vidal_style.css">
+</head>
+<body>
+
+  <div id="app" class="container app">
+    <label class="label">Insert your github username</label>
+    <div class="field">
+      <div class="control">
+        <!-- v-on:keyup uses method add() without parameter. v-model has the parameter -->
+        <input class="input" type="text" placeholder="username" v-model="username" @keyup.enter="getRepos()">
+      </div>
+    </div>
+
+    <div class="control">
+      <!-- it is necessary to break onto two classes -->
+      <div class="select" :class="{'is-loading': loadingRepos}">
+        <!-- for each value selected, it will call on change getIssues() function -->
+        <select v-model="selectedRepo" @change="getIssues()">
+          <option value ="" selected>Select repo</option>
+          <option v-for="repo in repos">{{repo.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- component is the following-->
+    <todo-table :tasks="tasks"></todo-table>
+  </div>
+
+  <script src="todoTable.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',      
+      data: {
+        username: null,
+        loadingRepos: false,
+        selectedRepo: '',
+        tasks: null,
+        repos: null,
+      },
+      methods: {
+        remove: function(task){
+          let idx = this.tasks.indexOf(task);
+          this.tasks.splice(idx, 1);
+        },
+        getRepos: function(){
+          this.loadingRepos = true;
+          axios.get(`https://api.github.com/users/${this.username}/repos`).then((result) => {this.repos = result.data;});
+          this.loadingRepos = false;
+        },
+        getIssues: function() {
+          axios.get(`https://api.github.com/repos/${this.username}/${this.selectedRepo}/issues`).then((result) => {
+            let issues = result.data;
+            this.tasks = issues.map((issue) => {
+              return {
+                name: issue.title,
+                done: false,
+              };
+            });
+          });
+        }
+      },
+    });
+  </script>
+
+</body>
+</html>
+
