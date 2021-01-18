@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<meta charset="urf-8">
+<head>
+    <title>07 - Nome de componentes</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <span>Vue.js usa registro global e local de componentes para evitar conflitos.</span><br>
+    <span>Ate agora, fizemos o registro global de componentes.</span>
+
+
+    <div id="app">
+        <p>{{ total }}</p>
+        <button-counter @increment="incrementTotal()"></button-counter>
+        <button-counter @increment="incrementTotal()"></button-counter>
+    </div>
+
+    <script>
+        // definicao da componente vue.js
+        var buttonCounter = {
+            template: `<button @click="incrementCounter">{{ counter }}</button>`,
+            data: function() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                incrementCounter: function() {
+                    this.counter++;
+                    this.$emit('increment'); // evento sobe na ComponentTree
+                },
+            },
+        };
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: 0,
+            },
+            methods: {
+                incrementTotal: function() {
+                    this.total++;
+                },
+            },
+            components: {
+                'button-counter': buttonCounter // renomeando a componente
+            },
+        });
+    </script>
+    
+</body>
+</html>
