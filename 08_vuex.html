@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<meta charset="urf-8">
+<head>
+    <title>08 - Vuex</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vuex"></script>
+</head>
+<body>
+
+    <div id="app">
+        <button @click="aumenta()" style="font-size: xx-large">{{ counter }}</button>
+    </div>
+
+    <script src="myStore.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Olá, Vue!',
+            },
+            computed: {
+                counter: function() {
+                    return this.$store.state.count;
+                }
+            },
+            methods: {
+                aumenta: function() {
+                    // this.$store.state.count++;
+                    this.$store.commit('increment');
+                }
+            },
+            store: window.STORE, // aqui viraria import com templates
+        });
+
+    </script>
+
+</body>
+</html>
