@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>07 - Eventos sobem (fatorado)</title>
+  <script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+		<h1>Não é possivel se utilizar Single File Component sem nodejs!!!
+				Você precisa de um ferramenta de build!!! (e.g. Webpack)</h1>
+    <parent />
+    <child />
+  </div>
+
+	<script src="./parent.vue"></script> <!-- this tries to find parent.vue.js -->
+	<script src="./child.vue"></script> 
+  <script>
+    // import parent from './parent' // this is wrong because you can not use import outside a module
+    // import child from './child'
+
+    var app = new Vue({
+      el: '#app',
+      components: {
+          parent,
+          child
+      }
+    })
+
+  </script>
+</body>
+</html>
